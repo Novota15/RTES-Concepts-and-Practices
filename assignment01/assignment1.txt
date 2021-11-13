@@ -1,0 +1,3 @@
+Nov 13 15:02:35 5033-vm ubuntu: [COURSE:1][ASSIGNMENT:1]: Linux 5033-vm 4.8.0-36-generic #36~16.04.1-Ubuntu SMP Sun Feb 5 09:39:57 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+Nov 13 15:02:51 5033-vm [COURSE:1][ASSIGNMENT:1]: Hello World from Main!
+Nov 13 15:02:51 5033-vm [COURSE:1][ASSIGNMENT:1]: Hello World from Thread!
