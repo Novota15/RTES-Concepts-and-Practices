@@ -2,11 +2,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sched.h>
+#include <syslog.h>
 
-#define NUM_THREADS 12
+// notes for the assignment:
+// before printing to syslog clear it with:
+// echo > /dev/null | sudo tee /var/log/syslog 
 
-typedef struct
-{
+// for the first line you need to print uname -a, use logger command on the command line
+// logger [COURSE:X][ASSIGNMENT:Y]: `uname -a`
+// the rest of the logging happens through this code
+
+#define NUM_THREADS 1
+
+typedef struct {
     int threadIdx;
 } threadParams_t;
 
@@ -17,39 +25,29 @@ pthread_t threads[NUM_THREADS];
 threadParams_t threadParams[NUM_THREADS];
 
 
-void *counterThread(void *threadp)
-{
-    int sum=0, i;
-    threadParams_t *threadParams = (threadParams_t *)threadp;
-
-    for(i=1; i < (threadParams->threadIdx)+1; i++)
-        sum=sum+i;
- 
-    printf("Thread idx=%d, sum[0...%d]=%d\n", 
-           threadParams->threadIdx,
-           threadParams->threadIdx, sum);
+void *hello_world_thread(void *threadp) {
+    syslog(LOG_DEBUG, "Hello World from Thread!");
 }
 
 
-int main (int argc, char *argv[])
-{
-   int rc;
-   int i;
+int main (int argc, char *argv[]) {
+    openlog("[COURSE:1][ASSIGNMENT:1]", LOG_NDELAY, LOG_DAEMON); 
+    for(int i=0; i < NUM_THREADS; i++) {
+        threadParams[i].threadIdx=i;
 
-   for(i=0; i < NUM_THREADS; i++)
-   {
-       threadParams[i].threadIdx=i;
-
-       pthread_create(&threads[i],   // pointer to thread descriptor
+        pthread_create(&threads[i],   // pointer to thread descriptor
                       (void *)0,     // use default attributes
-                      counterThread, // thread function entry point
+                      hello_world_hread, // thread function entry point
                       (void *)&(threadParams[i]) // parameters to pass in
                      );
-
    }
+
+   syslog(LOG_DEBUG, "Hello World from Main!"); 
 
    for(i=0;i<NUM_THREADS;i++)
        pthread_join(threads[i], NULL);
+    closelog();
 
-   printf("TEST COMPLETE\n");
+    printf("Complete\n");
+    return 0;
 }
