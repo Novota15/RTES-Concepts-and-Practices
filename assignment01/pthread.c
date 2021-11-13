@@ -37,7 +37,7 @@ int main (int argc, char *argv[]) {
 
         pthread_create(&threads[i],   // pointer to thread descriptor
                       (void *)0,     // use default attributes
-                      hello_world_hread, // thread function entry point
+                      hello_world_thread, // thread function entry point
                       (void *)&(threadParams[i]) // parameters to pass in
                      );
    }
