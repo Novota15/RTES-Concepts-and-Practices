@@ -36,39 +36,6 @@ void *counter_thread(void *threadp) {
            threadParams->threadIdx, sum);
 }
 
-void copy_syslog() {
-    FILE *fptr1, *fptr2;
-    char filename[100], c;
-
-    // open syslog for reading
-    fptr1 = fopen("/var/log/syslog", "r");
-    if (fptr1 == NULL)
-    {
-        printf("Cannot open file %s \n", filename);
-        exit(0);
-    }
-
-    // open another file for writing
-    fptr2 = fopen("assignment2.txt", "w");
-    if (fptr2 == NULL)
-    {
-        printf("Cannot open file %s \n", filename);
-        exit(0);
-    }
-
-    // copy over contents from file
-    c = fgetc(fptr1);
-    while (c != EOF)
-    {
-        fputc(c, fptr2);
-        c = fgetc(fptr1);
-    }
-
-    fclose(fptr1);
-    fclose(fptr2);
-
-    printf("syslog contents copied to assignment2.txt");
-}
 
 int main (int argc, char *argv[]) {
     // clear syslog
@@ -94,9 +61,8 @@ int main (int argc, char *argv[]) {
     // move syslog output to text file for submission
     // fclose(fopen("assignment2.txt", "w"));
     // system("tail -n 129 /var/log/syslog > assignment2.txt");
-    // copy_syslog();
     system("cp /var/log/syslog assignment2.txt");
 
-    printf("\nComplete\n");
+    printf("Complete\n");
     return 0;
 }
