@@ -57,6 +57,6 @@ int main (int argc, char *argv[]) {
     closelog();
 
     printf("Complete\n");
-    system("cat /var/log/syslog > assignment2.txt")
+    system("cat /var/log/syslog > assignment2.txt");
     return 0;
 }
