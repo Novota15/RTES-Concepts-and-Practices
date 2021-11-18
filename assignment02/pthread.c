@@ -57,6 +57,7 @@ int main (int argc, char *argv[]) {
     closelog();
 
     printf("Complete\n");
+    fclose(fopen("assignment2.txt", "w"));
     system("tail -f /var/log/syslog > assignment2.txt");
     return 0;
 }
