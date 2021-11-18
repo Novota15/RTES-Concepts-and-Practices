@@ -35,13 +35,12 @@ void *counter_thread(void *threadp) {
     syslog(LOG_DEBUG, "Thread idx=%d, sum[0...%d]=%d\n", 
            threadParams->threadIdx,
            threadParams->threadIdx, sum);
-    return;
 }
 
 
 int main (int argc, char *argv[]) {
     system("echo > /dev/null | sudo tee /var/log/syslog");
-    system("[COURSE:1][ASSIGNMENT:2]: `uname -a | tee /var/log/syslog"); 
+    system("logger [COURSE:1][ASSIGNMENT:2]: `uname -a | tee /var/log/syslog"); 
     openlog("[COURSE:1][ASSIGNMENT:2]", LOG_NDELAY, LOG_DAEMON); 
     for(int i = 0; i < NUM_THREADS; i++) {
         threadParams[i].threadIdx=i;
@@ -58,5 +57,6 @@ int main (int argc, char *argv[]) {
     closelog();
 
     printf("Complete\n");
+    system("cat /var/log/syslog > assignment2.txt")
     return 0;
 }
