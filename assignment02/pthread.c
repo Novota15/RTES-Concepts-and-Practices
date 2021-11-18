@@ -60,7 +60,7 @@ int main (int argc, char *argv[]) {
 
     // move syslog output to text file for submission
     // fclose(fopen("assignment2.txt", "w"));
-    system("cat /var/log/syslog > assignment2.txt");
+    system("tail -n 129 /var/log/syslog > assignment2.txt");
     printf("Complete\n");
     return 0;
 }
