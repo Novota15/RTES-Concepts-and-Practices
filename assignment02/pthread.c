@@ -94,8 +94,8 @@ int main (int argc, char *argv[]) {
     // move syslog output to text file for submission
     // fclose(fopen("assignment2.txt", "w"));
     // system("tail -n 129 /var/log/syslog > assignment2.txt");
-    copy_syslog()
-    
+    copy_syslog();
+
     printf("\nComplete\n");
     return 0;
 }
