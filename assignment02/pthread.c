@@ -10,7 +10,6 @@
 
 // for the first line you need to print uname -a, use logger command on the command line
 // logger [COURSE:X][ASSIGNMENT:Y]: `uname -a`
-// the rest of the logging happens through this code
 
 #define NUM_THREADS 128
 
@@ -39,8 +38,11 @@ void *counter_thread(void *threadp) {
 
 
 int main (int argc, char *argv[]) {
+    // clear syslog
     system("echo > /dev/null | tee /var/log/syslog");
+    // create first line
     system("logger [COURSE:1][ASSIGNMENT:2]: `uname -a` | tee /var/log/syslog"); 
+
     openlog("[COURSE:1][ASSIGNMENT:2]", LOG_NDELAY, LOG_DAEMON); 
     for(int i = 0; i < NUM_THREADS; i++) {
         threadParams[i].threadIdx=i;
@@ -56,8 +58,9 @@ int main (int argc, char *argv[]) {
        pthread_join(threads[i], NULL);
     closelog();
 
-    printf("Complete\n");
+    // move syslog output to text file for submission
     // fclose(fopen("assignment2.txt", "w"));
-    // system("tail -f /var/log/syslog > assignment2.txt");
+    system("cat /var/log/syslog > assignment2.txt");
+    printf("Complete\n");
     return 0;
 }
