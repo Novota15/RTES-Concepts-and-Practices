@@ -67,7 +67,7 @@ int main (int argc, char *argv[]) {
     // move syslog output to text file for submission
     // fclose(fopen("assignment2.txt", "w"));
     // system("tail -n 129 /var/log/syslog > assignment2.txt");
-    delay(1000)
+    delay(1000);
     system("cp /var/log/syslog assignment2.txt");
 
     printf("\nComplete\n");
