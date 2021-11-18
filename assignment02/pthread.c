@@ -63,6 +63,6 @@ int main (int argc, char *argv[]) {
     // system("tail -n 129 /var/log/syslog > assignment2.txt");
     system("cp /var/log/syslog assignment2.txt");
 
-    printf("Complete\n");
+    printf("\nComplete\n");
     return 0;
 }
