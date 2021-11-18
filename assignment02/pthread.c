@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <sched.h>
 #include <syslog.h>
+#include <time.h>
 
 // notes for the assignment:
 // before printing to syslog clear it with:
@@ -36,6 +37,11 @@ void *counter_thread(void *threadp) {
            threadParams->threadIdx, sum);
 }
 
+void delay(unsigned int mseconds)
+{
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
 
 int main (int argc, char *argv[]) {
     // clear syslog
@@ -61,6 +67,7 @@ int main (int argc, char *argv[]) {
     // move syslog output to text file for submission
     // fclose(fopen("assignment2.txt", "w"));
     // system("tail -n 129 /var/log/syslog > assignment2.txt");
+    delay(1000)
     system("cp /var/log/syslog assignment2.txt");
 
     printf("\nComplete\n");
