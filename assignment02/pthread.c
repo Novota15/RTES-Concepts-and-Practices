@@ -95,7 +95,7 @@ int main (int argc, char *argv[]) {
     // fclose(fopen("assignment2.txt", "w"));
     // system("tail -n 129 /var/log/syslog > assignment2.txt");
     // copy_syslog();
-    system("cp /var/log/syslog assignment2.txt")
+    system("cp /var/log/syslog assignment2.txt");
 
     printf("\nComplete\n");
     return 0;
