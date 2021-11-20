@@ -31,6 +31,11 @@ void *hello_world_thread(void *threadp) {
 
 
 int main (int argc, char *argv[]) {
+    // clear syslog
+    system("echo > /dev/null | tee /var/log/syslog");
+    // create first line
+    system("logger [COURSE:1][ASSIGNMENT:1]: `uname -a` | tee /var/log/syslog"); 
+
     openlog("[COURSE:1][ASSIGNMENT:1]", LOG_NDELAY, LOG_DAEMON); 
     for(int i=0; i < NUM_THREADS; i++) {
         threadParams[i].threadIdx=i;
@@ -48,6 +53,10 @@ int main (int argc, char *argv[]) {
        pthread_join(threads[i], NULL);
     closelog();
 
-    printf("Complete\n");
+    // copy syslog output to text file for submission
+    delay(100000);
+    system("cp /var/log/syslog assignment1.txt");
+
+    printf("\nComplete\n");
     return 0;
 }
