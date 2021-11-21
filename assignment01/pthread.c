@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <sched.h>
 #include <syslog.h>
+#include <time.h>
 
 // notes for the assignment:
 // before printing to syslog clear it with:
@@ -29,6 +30,11 @@ void *hello_world_thread(void *threadp) {
     syslog(LOG_DEBUG, "Hello World from Thread!");
 }
 
+void delay(unsigned int mseconds)
+{
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
 
 int main (int argc, char *argv[]) {
     // clear syslog
