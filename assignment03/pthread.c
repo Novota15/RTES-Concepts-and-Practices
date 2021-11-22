@@ -13,6 +13,7 @@
 // logger [COURSE:X][ASSIGNMENT:Y]: `uname -a`
 
 #define NUM_THREADS 128
+#define SCHED_POLICY SCHED_FIFO
 
 typedef struct {
     int threadIdx;
@@ -20,10 +21,30 @@ typedef struct {
 
 
 // POSIX thread declarations and scheduling attributes
-//
 pthread_t threads[NUM_THREADS];
 threadParams_t threadParams[NUM_THREADS];
 
+pthread_attr_t fifo_sched_attr;
+struct sched_param fifo_param;
+
+// set up scheduler
+void set_scheduler(void) {
+    int max_priority = 99;
+    int rc;
+
+    print_scheduler();
+
+    pthread_attr_init(&fifo_sched_attr);
+    pthread_attr_setinheritsched(&fifo_sched_attr, PTHREAD_EXPLICIT_SCHED);
+    pthread_attr_setschedpolicy(&fifo_sched_attr, SCHED_POLICY);
+
+    max_priority = sched_get_priority_max(SCHED_POLICY);
+    fifo_param.sched_priority = max_priority;
+
+    pthread_attr_setschedparam(&fifo_sched_attr, &fifo_param);
+
+    print_scheduler();
+}
 
 void *counter_thread(void *threadp) {
     int sum = 0, i;
@@ -32,13 +53,12 @@ void *counter_thread(void *threadp) {
     for(i = 1; i <= (threadParams->threadIdx); i++)
         sum=sum+i;
  
-    syslog(LOG_DEBUG, "Thread idx=%d, sum[0...%d]=%d\n", 
+    syslog(LOG_DEBUG, "Thread idx=%d, sum[0...%d]=%d, running on core:%d\n", 
            threadParams->threadIdx,
-           threadParams->threadIdx, sum);
+           threadParams->threadIdx, sum, sched_getcpu());
 }
 
-void delay(unsigned int mseconds)
-{
+void delay(unsigned int mseconds) {
     clock_t goal = mseconds + clock();
     while (goal > clock());
 }
@@ -47,28 +67,32 @@ int main (int argc, char *argv[]) {
     // clear syslog
     system("echo > /dev/null | tee /var/log/syslog");
     // create first line
-    system("logger [COURSE:1][ASSIGNMENT:2]: `uname -a` | tee /var/log/syslog"); 
+    system("logger [COURSE:1][ASSIGNMENT:3]: `uname -a` | tee /var/log/syslog");
+    // open for logging
+    openlog("[COURSE:1][ASSIGNMENT:3]", LOG_NDELAY, LOG_DAEMON);
 
-    openlog("[COURSE:1][ASSIGNMENT:2]", LOG_NDELAY, LOG_DAEMON); 
+    set_scheduler();
+    
     for(int i = 0; i < NUM_THREADS; i++) {
         threadParams[i].threadIdx=i;
 
         pthread_create(&threads[i],   // pointer to thread descriptor
-                      (void *)0,     // use default attributes
+                      &fifo_sched_attr,     // use fifo
                       counter_thread, // thread function entry point
                       (void *)&(threadParams[i]) // parameters to pass in
                      );
    } 
 
-   for(int i = 0; i < NUM_THREADS; i++)
-       pthread_join(threads[i], NULL);
+    for(int i = 0; i < NUM_THREADS; i++)
+        pthread_join(threads[i], NULL);
+    
     closelog();
 
     // move syslog output to text file for submission
     // fclose(fopen("assignment2.txt", "w"));
     // system("tail -n 129 /var/log/syslog > assignment2.txt");
     delay(100000);
-    system("cp /var/log/syslog assignment2.txt");
+    system("cp /var/log/syslog assignment3.txt");
 
     printf("\nComplete\n");
     return 0;
