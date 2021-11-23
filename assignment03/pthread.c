@@ -4,7 +4,6 @@
 #include <sched.h>
 #include <syslog.h>
 #include <time.h>
-#define _GNU_SOURCE // to avoid get_cpu() implicit declaration warining
 
 // notes for the assignment:
 // before printing to syslog clear it with:
@@ -12,6 +11,8 @@
 
 // for the first line you need to print uname -a, use logger command on the command line
 // logger [COURSE:X][ASSIGNMENT:Y]: `uname -a`
+
+#define _GNU_SOURCE // to avoid get_cpu() implicit declaration warning
 
 #define NUM_THREADS 128
 #define SCHED_POLICY SCHED_FIFO
