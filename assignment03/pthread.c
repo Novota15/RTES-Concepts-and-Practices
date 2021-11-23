@@ -39,14 +39,14 @@ void set_scheduler(void) {
     int max_priority; // priority values are 1-99 by default
     int rc;
 
-    printf("Before policy adjustment:\n")
+    printf("Before policy adjustment:\n");
     print_scheduler();
 
     pthread_attr_init(&fifo_sched_attr);
     pthread_attr_setinheritsched(&fifo_sched_attr, PTHREAD_EXPLICIT_SCHED);
     pthread_attr_setschedpolicy(&fifo_sched_attr, SCHED_POLICY);
 
-    printf("After policy adjustment:\n")
+    printf("After policy adjustment:\n");
     print_scheduler();
 
     max_priority = sched_get_priority_max(SCHED_POLICY);
