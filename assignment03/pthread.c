@@ -30,9 +30,11 @@ threadParams_t threadParams[NUM_THREADS];
 pthread_attr_t fifo_sched_attr;
 struct sched_param fifo_param;
 
+// print scheduling policy
 void print_scheduler(void) {
     int sched_type = sched_getscheduler(getpid());
     char *sched = malloc(256);
+    
     switch (sched_type)
     {
     case SCHED_FIFO:
