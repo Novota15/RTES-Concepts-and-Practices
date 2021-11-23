@@ -4,6 +4,8 @@
 #include <sched.h>
 #include <syslog.h>
 #include <time.h>
+#include <string.h>
+#include <unistd.h>
 
 // notes for the assignment:
 // before printing to syslog clear it with:
@@ -45,7 +47,7 @@ void print_scheduler(void) {
         break;
     }
 
-    printf("Pthread policy is: %c\n", sched);
+    printf("Pthread policy is: %c\n", *sched);
     free(sched);
 }
 
