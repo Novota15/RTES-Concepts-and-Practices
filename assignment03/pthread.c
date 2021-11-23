@@ -4,6 +4,7 @@
 #include <sched.h>
 #include <syslog.h>
 #include <time.h>
+#define _GNU_SOURCE // to avoid get_cpu() implicit declaration warining
 
 // notes for the assignment:
 // before printing to syslog clear it with:
