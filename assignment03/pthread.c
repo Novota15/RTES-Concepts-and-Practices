@@ -31,8 +31,6 @@ void set_scheduler(void) {
     int max_priority; // priority values are 1-99 by default
     int rc;
 
-    print_scheduler();
-
     pthread_attr_init(&fifo_sched_attr);
     pthread_attr_setinheritsched(&fifo_sched_attr, PTHREAD_EXPLICIT_SCHED);
     pthread_attr_setschedpolicy(&fifo_sched_attr, SCHED_POLICY);
@@ -41,8 +39,6 @@ void set_scheduler(void) {
     fifo_param.sched_priority = max_priority;
 
     pthread_attr_setschedparam(&fifo_sched_attr, &fifo_param);
-
-    print_scheduler();
 }
 
 void *counter_thread(void *threadp) {
