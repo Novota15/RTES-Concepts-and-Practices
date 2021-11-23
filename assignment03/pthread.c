@@ -37,7 +37,6 @@ void print_scheduler(void) {
     {
     case SCHED_FIFO:
         strcpy(sched, "SCHED_FIFO");
-        sched = "SCHED_FIFO";
         break;
     case SCHED_OTHER:
         strcpy(sched, "SCHED_OTHER");
@@ -63,13 +62,17 @@ void set_scheduler(void) {
     pthread_attr_setinheritsched(&fifo_sched_attr, PTHREAD_EXPLICIT_SCHED);
     pthread_attr_setschedpolicy(&fifo_sched_attr, SCHED_POLICY);
 
-    printf("After policy adjustment:\n");
-    print_scheduler();
-
     max_priority = sched_get_priority_max(SCHED_POLICY);
     fifo_param.sched_priority = max_priority;
 
+    if ((rc = sched_setscheduler(getpid(), SCHED_POLICY, &fifo_param)) < 0) {
+        perror("sched_setscheduler");
+	}
+    
     pthread_attr_setschedparam(&fifo_sched_attr, &fifo_param);
+
+    printf("After policy adjustment:\n");
+    print_scheduler();
 }
 
 void *counter_thread(void *threadp) {
