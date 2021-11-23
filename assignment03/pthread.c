@@ -31,7 +31,20 @@ struct sched_param fifo_param;
 void print_scheduler(void) {
     int sched_type = sched_getscheduler(getpid());
 
-    printf("Pthread policy is: %c\n", sched_type);
+    switch (sched_type)
+    {
+    case SCHED_FIFO:
+        char type[] = "SCHED_FIFO";
+        break;
+    case SCHED_OTHER:
+        char type[] = "SCHED_OTHER";
+        break;
+    default:
+        char type[] = "UNKNOWN";
+        break;
+    }
+
+    printf("Pthread policy is: %c\n", type);
 }
 
 // set up scheduler
