@@ -47,7 +47,7 @@ void print_scheduler(void) {
         break;
     }
 
-    printf("Pthread policy is: %c\n", *sched);
+    printf("Pthread policy is: %s\n", *sched);
     free(sched);
 }
 
