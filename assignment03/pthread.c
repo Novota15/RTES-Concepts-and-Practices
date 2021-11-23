@@ -30,17 +30,17 @@ struct sched_param fifo_param;
 
 void print_scheduler(void) {
     int sched_type = sched_getscheduler(getpid());
-    
+    char sched[20];
     switch (sched_type)
     {
     case SCHED_FIFO:
-        char sched[] = "SCHED_FIFO";
+        sched = "SCHED_FIFO";
         break;
     case SCHED_OTHER:
-        char sched[] = "SCHED_OTHER";
+        sched = "SCHED_OTHER";
         break;
     default:
-        char sched[] = "UNKNOWN";
+        sched = "UNKNOWN";
         break;
     }
 
