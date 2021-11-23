@@ -12,7 +12,7 @@
 // for the first line you need to print uname -a, use logger command on the command line
 // logger [COURSE:X][ASSIGNMENT:Y]: `uname -a`
 
-#define _GNU_SOURCE // to avoid get_cpu() implicit declaration warning
+// #define _GNU_SOURCE // to avoid get_cpu() implicit declaration warning
 
 #define NUM_THREADS 128
 #define SCHED_POLICY SCHED_FIFO
@@ -31,7 +31,7 @@ struct sched_param fifo_param;
 void print_scheduler(void) {
     int sched_type = sched_getscheduler(getpid());
 
-    printf("Pthread policy is: %d\n", sched_type);
+    printf("Pthread policy is: %c\n", sched_type);
 }
 
 // set up scheduler
