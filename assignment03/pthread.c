@@ -19,7 +19,6 @@ typedef struct {
     int threadIdx;
 } threadParams_t;
 
-
 // POSIX thread declarations and scheduling attributes
 pthread_t threads[NUM_THREADS];
 threadParams_t threadParams[NUM_THREADS];
@@ -29,7 +28,7 @@ struct sched_param fifo_param;
 
 // set up scheduler
 void set_scheduler(void) {
-    int max_priority = 99;
+    int max_priority; // priority values are 1-99 by default
     int rc;
 
     print_scheduler();
