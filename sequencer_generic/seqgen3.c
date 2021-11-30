@@ -468,17 +468,21 @@ void Sequencer(int id)
 
     // Release each service at a sub-rate of the generic sequencer rate
 
-    // Servcie_1 = RT_MAX-1	@ 50 Hz
-    //if((seqCnt % 2) == 0) sem_post(&semS1);
+    if((seqCnt % 2) == 0) sem_post(&semS1); // once every 20msec
+    if((seqCnt % 10) == 0) sem_post(&semS2); // once every 100msec
+    if((seqCnt % 15) == 0) sem_post(&semS3); // once every 150msec
+
+    // Service_1 = RT_MAX-1	@ 50 Hz
+    //if((seqCnt % 2) == 0) sem_post(&semS1); // once every 20msec
 
     // Service_2 = RT_MAX-2	@ 20 Hz
-    //if((seqCnt % 5) == 0) sem_post(&semS2);
+    // if((seqCnt % 5) == 0) sem_post(&semS2);
 
     // Service_3 = RT_MAX-3	@ 10 Hz
-    //if((seqCnt % 10) == 0) sem_post(&semS3);
+    //if((seqCnt % 10) == 0) sem_post(&semS3); // once every 100msec
 
     // Service_4 = RT_MAX-4	@ 5 Hz
-    if((seqCnt % 20) == 0) sem_post(&semS4);
+    //if((seqCnt % 20) == 0) sem_post(&semS4);
 
     // Service_5 = RT_MAX-5	@ 2 Hz
     //if((seqCnt % 50) == 0) sem_post(&semS5);
@@ -487,7 +491,7 @@ void Sequencer(int id)
     //if((seqCnt % 100) == 0) sem_post(&semS6);
 
     // Service_7 = RT_MIN	1 Hz
-    if((seqCnt % 100) == 0) sem_post(&semS7);
+    //if((seqCnt % 100) == 0) sem_post(&semS7);
 
     
     if(abortTest || (seqCnt >= sequencePeriods))
