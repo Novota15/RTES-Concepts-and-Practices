@@ -2,25 +2,25 @@ import os
 
 def single_threaded_120k():
     for i in range(1,10):
-        print("run:", i, "\n")
+        print("\nrun:", i)
         os.system("./sharpen Cactus-120kpixel.ppm 120k_output.pmm")
     return False
 
 def single_threaded_12M():
     for i in range(1,10):
-        print("run:", i, "\n")
+        print("\nrun:", i)
         os.system("./sharpen Cactus-12mpixel.ppm 120k_output.pmm")
     return False
 
 def multi_threaded_120k():
     for i in range(1,10):
-        print("run:", i, "\n")
+        print("\nrun:", i)
         os.system("./sharpen_grid Cactus-120kpixel.ppm 120k_output.pmm")
     return False
 
 def multi_threaded_12M():
     for i in range(1,10):
-        print("run:", i, "\n")
+        print("\nrun:", i)
         os.system("./sharpen_grid Cactus-12mpixel.ppm 120k_output.pmm")
     return False
 
