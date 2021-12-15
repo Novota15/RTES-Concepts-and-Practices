@@ -9,7 +9,7 @@ def single_threaded_120k():
 def single_threaded_12M():
     for i in range(1,11):
         print("\nrun:", i)
-        os.system("./sharpen Cactus-12mpixel.ppm 120k_output.pmm")
+        os.system("./sharpen12m Cactus-12mpixel.ppm 12m_output.pmm")
     return False
 
 def multi_threaded_120k():
@@ -21,7 +21,7 @@ def multi_threaded_120k():
 def multi_threaded_12M():
     for i in range(1,11):
         print("\nrun:", i)
-        os.system("./sharpen_grid Cactus-12mpixel.ppm 120k_output.pmm")
+        os.system("./sharpen_grid12m Cactus-12mpixel.ppm 12m_output.pmm")
     return False
 
 def is_done():
