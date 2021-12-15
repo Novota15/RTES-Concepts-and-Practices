@@ -20,7 +20,7 @@ def multi_threaded_12M():
         os.system("./sharpen_grid Cactus-12mpixel.ppm 120k_output.pmm")
     return False
 
-def done():
+def is_done():
     return True
 
 def main():
@@ -32,7 +32,7 @@ def main():
                     "1" : single_threaded_12M,
                     "2" : multi_threaded_120k,
                     "3" : multi_threaded_12M,
-                    "4" : done}
+                    "4" : is_done}
 
         for option in options_text.keys():
             print(option, options_text[option])
