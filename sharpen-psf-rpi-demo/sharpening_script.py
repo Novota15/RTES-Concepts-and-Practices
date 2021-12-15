@@ -35,7 +35,7 @@ def main():
                     "4" : done}
 
         for option in options_text.keys():
-            print(option, options[option])
+            print(option, options_text[option])
         selection = str(input())
 
         done = options[selection]()
