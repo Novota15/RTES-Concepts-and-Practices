@@ -123,11 +123,11 @@
 #define USEC_PER_MSEC (1000)
 #define NANOSEC_PER_MSEC (1000000)
 #define NANOSEC_PER_SEC (1000000000)
-#define NUM_CPU_CORES (4)
+#define NUM_CPU_CORES (1)
 #define TRUE (1)
 #define FALSE (0)
 
-#define NUM_THREADS (7)
+#define NUM_THREADS (3)
 
 // Of the available user space clocks, CLOCK_MONONTONIC_RAW is typically most precise and not subject to 
 // updates from external timer adjustments
