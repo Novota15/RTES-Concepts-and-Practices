@@ -123,11 +123,11 @@
 #define USEC_PER_MSEC (1000)
 #define NANOSEC_PER_MSEC (1000000)
 #define NANOSEC_PER_SEC (1000000000)
-#define NUM_CPU_CORES (1)
+#define NUM_CPU_CORES (4)
 #define TRUE (1)
 #define FALSE (0)
 
-#define NUM_THREADS (3)
+#define NUM_THREADS (7)
 
 // Of the available user space clocks, CLOCK_MONONTONIC_RAW is typically most precise and not subject to 
 // updates from external timer adjustments
@@ -292,20 +292,25 @@ void main(void)
     {
 
       // run even indexed threads on core 2
-      if(i % 2 == 0)
-      {
-          CPU_ZERO(&threadcpu);
-          cpuidx=(2);
-          CPU_SET(cpuidx, &threadcpu);
-      }
+    //   if(i % 2 == 0)
+    //   {
+    //       CPU_ZERO(&threadcpu);
+    //       cpuidx=(2);
+    //       CPU_SET(cpuidx, &threadcpu);
+    //   }
 
-      // run odd indexed threads on core 3
-      else
-      {
-          CPU_ZERO(&threadcpu);
-          cpuidx=(3);
-          CPU_SET(cpuidx, &threadcpu);
-      }
+    //   // run odd indexed threads on core 3
+    //   else
+    //   {
+    //       CPU_ZERO(&threadcpu);
+    //       cpuidx=(3);
+    //       CPU_SET(cpuidx, &threadcpu);
+    //   }
+
+    // for assignment - run all threads on core 2
+    CPU_ZERO(&threadcpu);
+    cpuidx=(2);
+    CPU_SET(cpuidx, &threadcpu);
 
       rc=pthread_attr_init(&rt_sched_attr[i]);
       rc=pthread_attr_setinheritsched(&rt_sched_attr[i], PTHREAD_EXPLICIT_SCHED);
