@@ -214,6 +214,13 @@ static inline unsigned ccnt_read (void)
 
 void main(void)
 {
+    // clear syslog
+    system("echo > /dev/null | tee /var/log/syslog");
+    // create first line
+    system("logger [COURSE:1][ASSIGNMENT:GenericSeq]: `uname -a` | tee /var/log/syslog");
+    // open for logging
+    openlog("[COURSE:1][ASSIGNMENT:GenericSeq]", LOG_NDELAY, LOG_DAEMON);
+    
     struct timespec current_time_val, current_time_res;
     double current_realtime, current_realtime_res;
 
@@ -455,6 +462,10 @@ void main(void)
 	else
 		printf("joined thread %d\n", i);
     }
+
+   
+   delay(100000);
+   system("cp /var/log/syslog assignment_gen_seq.txt");
 
    printf("\nTEST COMPLETE\n");
 }
