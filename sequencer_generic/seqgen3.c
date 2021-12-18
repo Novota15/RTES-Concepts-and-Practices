@@ -210,7 +210,10 @@ static inline unsigned ccnt_read (void)
     return cc;
 }
 
-
+void delay(unsigned int mseconds) {
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
 
 void main(void)
 {
