@@ -437,10 +437,6 @@ void main(void)
     /* set up to signal SIGALRM if timer expires */
     timer_create(CLOCK_REALTIME, NULL, &timer_1);
 
-    // allow all threads to start immediately when available
-    sem_post(&semS1);
-    sem_post(&semS2);
-    sem_post(&semS3);
 
     signal(SIGALRM, (void(*)()) Sequencer);
 
@@ -457,6 +453,10 @@ void main(void)
 
     timer_settime(timer_1, flags, &itime, &last_itime);
 
+    // allow all threads to start immediately when available
+    sem_post(&semS1);
+    sem_post(&semS2);
+    sem_post(&semS3);
 
     for(i=0;i<NUM_THREADS;i++)
     {
