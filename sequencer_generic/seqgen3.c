@@ -429,9 +429,9 @@ void main(void)
     // sleep(1);
 
     // allow all threads to start immediately when available
-    sem_post(&semS1);
-    sem_post(&semS2);
-    sem_post(&semS3);
+    // sem_post(&semS1);
+    // sem_post(&semS2);
+    // sem_post(&semS3);
  
     // Create Sequencer thread, which like a cyclic executive, is highest prio
     printf("Start sequencer\n");
@@ -615,7 +615,7 @@ void *Service_3(void *threadp)
         S3Cnt++;
 
         clock_gettime(MY_CLOCK_TYPE, &current_time_val); current_realtime=realtime(&current_time_val);
-        syslog(LOG_CRIT, "S3 10 Hz on core %d forrelease %llu @ sec=%6.9lf\n", sched_getcpu(), S3Cnt, current_realtime-start_realtime);
+        syslog(LOG_CRIT, "S3 10 Hz on core %d for release %llu @ sec=%6.9lf\n", sched_getcpu(), S3Cnt, current_realtime-start_realtime);
     }
 
     pthread_exit((void *)0);
