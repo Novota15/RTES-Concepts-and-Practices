@@ -427,11 +427,6 @@ void main(void)
     // program.
     //
     // sleep(1);
-
-    // allow all threads to start immediately when available
-    // sem_post(&semS1);
-    // sem_post(&semS2);
-    // sem_post(&semS3);
  
     // Create Sequencer thread, which like a cyclic executive, is highest prio
     printf("Start sequencer\n");
@@ -441,6 +436,11 @@ void main(void)
     //
     /* set up to signal SIGALRM if timer expires */
     timer_create(CLOCK_REALTIME, NULL, &timer_1);
+
+    // allow all threads to start immediately when available
+    sem_post(&semS1);
+    sem_post(&semS2);
+    sem_post(&semS3);
 
     signal(SIGALRM, (void(*)()) Sequencer);
 
