@@ -338,11 +338,6 @@ void main(void)
     // Create Service threads which will block awaiting release for:
     //
 
-    // allow all threads to start immediately when available
-    sem_post(&semS1);
-    sem_post(&semS2);
-    sem_post(&semS3);
-
     // Servcie_1 = RT_MAX-1	@ 50 Hz
     //
     rt_param[0].sched_priority=rt_max_prio-1;
@@ -432,6 +427,11 @@ void main(void)
     // program.
     //
     // sleep(1);
+
+    // allow all threads to start immediately when available
+    sem_post(&semS1);
+    sem_post(&semS2);
+    sem_post(&semS3);
  
     // Create Sequencer thread, which like a cyclic executive, is highest prio
     printf("Start sequencer\n");
