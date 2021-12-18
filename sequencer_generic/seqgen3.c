@@ -127,7 +127,7 @@
 #define TRUE (1)
 #define FALSE (0)
 
-#define NUM_THREADS (7)
+#define NUM_THREADS (3)
 
 // Of the available user space clocks, CLOCK_MONONTONIC_RAW is typically most precise and not subject to 
 // updates from external timer adjustments
@@ -268,10 +268,10 @@ void main(void)
     if (sem_init (&semS1, 0, 0)) { printf ("Failed to initialize S1 semaphore\n"); exit (-1); }
     if (sem_init (&semS2, 0, 0)) { printf ("Failed to initialize S2 semaphore\n"); exit (-1); }
     if (sem_init (&semS3, 0, 0)) { printf ("Failed to initialize S3 semaphore\n"); exit (-1); }
-    if (sem_init (&semS4, 0, 0)) { printf ("Failed to initialize S4 semaphore\n"); exit (-1); }
-    if (sem_init (&semS5, 0, 0)) { printf ("Failed to initialize S5 semaphore\n"); exit (-1); }
-    if (sem_init (&semS6, 0, 0)) { printf ("Failed to initialize S6 semaphore\n"); exit (-1); }
-    if (sem_init (&semS7, 0, 0)) { printf ("Failed to initialize S7 semaphore\n"); exit (-1); }
+    // if (sem_init (&semS4, 0, 0)) { printf ("Failed to initialize S4 semaphore\n"); exit (-1); }
+    // if (sem_init (&semS5, 0, 0)) { printf ("Failed to initialize S5 semaphore\n"); exit (-1); }
+    // if (sem_init (&semS6, 0, 0)) { printf ("Failed to initialize S6 semaphore\n"); exit (-1); }
+    // if (sem_init (&semS7, 0, 0)) { printf ("Failed to initialize S7 semaphore\n"); exit (-1); }
 
     mainpid=getpid();
 
@@ -383,46 +383,46 @@ void main(void)
 
     // Service_4 = RT_MAX-4	@ 5 Hz
     //
-    rt_param[3].sched_priority=rt_max_prio-4;
-    pthread_attr_setschedparam(&rt_sched_attr[3], &rt_param[3]);
-    rc=pthread_create(&threads[3], &rt_sched_attr[3], Service_4, (void *)&(threadParams[3]));
-    if(rc < 0)
-        perror("pthread_create for service 4");
-    else
-        printf("pthread_create successful for service 4\n");
+    // rt_param[3].sched_priority=rt_max_prio-4;
+    // pthread_attr_setschedparam(&rt_sched_attr[3], &rt_param[3]);
+    // rc=pthread_create(&threads[3], &rt_sched_attr[3], Service_4, (void *)&(threadParams[3]));
+    // if(rc < 0)
+    //     perror("pthread_create for service 4");
+    // else
+    //     printf("pthread_create successful for service 4\n");
 
 
     // Service_5 = RT_MAX-5	@ 2 Hz
     //
-    rt_param[4].sched_priority=rt_max_prio-5;
-    pthread_attr_setschedparam(&rt_sched_attr[4], &rt_param[4]);
-    rc=pthread_create(&threads[4], &rt_sched_attr[4], Service_5, (void *)&(threadParams[4]));
-    if(rc < 0)
-        perror("pthread_create for service 5");
-    else
-        printf("pthread_create successful for service 5\n");
+    // rt_param[4].sched_priority=rt_max_prio-5;
+    // pthread_attr_setschedparam(&rt_sched_attr[4], &rt_param[4]);
+    // rc=pthread_create(&threads[4], &rt_sched_attr[4], Service_5, (void *)&(threadParams[4]));
+    // if(rc < 0)
+    //     perror("pthread_create for service 5");
+    // else
+    //     printf("pthread_create successful for service 5\n");
 
 
     // Service_6 = RT_MAX-6	@ 1 Hz
     //
-    rt_param[5].sched_priority=rt_max_prio-6;
-    pthread_attr_setschedparam(&rt_sched_attr[5], &rt_param[5]);
-    rc=pthread_create(&threads[5], &rt_sched_attr[5], Service_6, (void *)&(threadParams[5]));
-    if(rc < 0)
-        perror("pthread_create for service 6");
-    else
-        printf("pthread_create successful for service 6\n");
+    // rt_param[5].sched_priority=rt_max_prio-6;
+    // pthread_attr_setschedparam(&rt_sched_attr[5], &rt_param[5]);
+    // rc=pthread_create(&threads[5], &rt_sched_attr[5], Service_6, (void *)&(threadParams[5]));
+    // if(rc < 0)
+    //     perror("pthread_create for service 6");
+    // else
+    //     printf("pthread_create successful for service 6\n");
 
 
     // Service_7 = RT_MIN	@ 1 Hz
     //
-    rt_param[6].sched_priority=rt_min_prio;
-    pthread_attr_setschedparam(&rt_sched_attr[6], &rt_param[6]);
-    rc=pthread_create(&threads[6], &rt_sched_attr[6], Service_7, (void *)&(threadParams[6]));
-    if(rc < 0)
-        perror("pthread_create for service 7");
-    else
-        printf("pthread_create successful for service 7\n");
+    // rt_param[6].sched_priority=rt_min_prio;
+    // pthread_attr_setschedparam(&rt_sched_attr[6], &rt_param[6]);
+    // rc=pthread_create(&threads[6], &rt_sched_attr[6], Service_7, (void *)&(threadParams[6]));
+    // if(rc < 0)
+    //     perror("pthread_create for service 7");
+    // else
+    //     printf("pthread_create successful for service 7\n");
 
 
     // Wait for service threads to initialize and await relese by sequencer.
