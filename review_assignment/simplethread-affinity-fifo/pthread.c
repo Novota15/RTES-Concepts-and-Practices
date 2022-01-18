@@ -135,9 +135,20 @@ void *starterThread(void *threadp)
 
 }
 
+void delay(unsigned int mseconds) {
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
 
 int main (int argc, char *argv[])
 {
+   // clear syslog
+    system("echo > /dev/null | tee /var/log/syslog");
+    // create first line
+    system("logger [COURSE:1][Simple_Affinity]: `uname -a` | tee /var/log/syslog");
+    // open for logging
+    openlog("[COURSE:1][Simple_Affinity]", LOG_NDELAY, LOG_DAEMON);
+   
    int rc;
    int i, j;
    cpu_set_t cpuset;
@@ -172,5 +183,9 @@ int main (int argc, char *argv[])
 
    pthread_join(startthread, NULL);
 
+   closelog();
+   // move syslog output to text file
+   delay(100000);
+   system("cp /var/log/syslog simple_affinity.txt");
    printf("\nTEST COMPLETE\n");
 }

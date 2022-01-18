@@ -224,8 +224,20 @@ void end_delay_test(void)
 
 #define RUN_RT_THREAD
 
+void delay(unsigned int mseconds) {
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
+
 void main(void)
 {
+   // clear syslog
+    system("echo > /dev/null | tee /var/log/syslog");
+    // create first line
+    system("logger [COURSE:1][RT_Clock]: `uname -a` | tee /var/log/syslog");
+    // open for logging
+    openlog("[COURSE:1][RT_Clock]", LOG_NDELAY, LOG_DAEMON);
+   
    int rc, scope;
 
    printf("Before adjustments to scheduling policy:\n");
@@ -272,6 +284,10 @@ void main(void)
    delay_test((void *)0);
 #endif
 
-   printf("TEST COMPLETE\n");
+  closelog();
+  // move syslog output to text file
+  delay(100000);
+  system("cp /var/log/syslog rt_clock.txt");
+  printf("TEST COMPLETE\n");
 }
 
