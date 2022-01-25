@@ -165,7 +165,7 @@ void *delay_test(void *threadID)
 
   for(idx=0; idx < TEST_ITERATIONS; idx++)
   {
-      syslog(LOG_DEBUG, "test %d\n, idx");
+      syslog(LOG_DEBUG, "test %d\n", idx);
       // printf("test %d\n", idx);
 
       /* run test for defined seconds */
@@ -223,7 +223,9 @@ void end_delay_test(void)
   printf("\n");
   printf("Sleep loop count = %ld\n", sleep_count);
 #endif
-  printf("MY_CLOCK delay error = %ld, nanoseconds = %ld\n", 
+  //printf("MY_CLOCK delay error = %ld, nanoseconds = %ld\n", 
+  //       delay_error.tv_sec, delay_error.tv_nsec);
+  syslog(LOG_DEBUG, "MY_CLOCK delay error = %ld, nanoseconds = %ld\n", 
          delay_error.tv_sec, delay_error.tv_nsec);
 }
 
