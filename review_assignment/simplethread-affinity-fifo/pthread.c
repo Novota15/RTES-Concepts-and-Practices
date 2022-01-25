@@ -106,7 +106,7 @@ void *counterThread(void *threadp)
     stop = ((stopTime.tv_sec * 1000000.0) + stopTime.tv_usec)/1000000.0;
 
     // changed this from printf to syslog
-    syslog(LOG_DEBUG, "\nThread idx=%d, sum[0...%d]=%d, running on CPU=%d, start=%lf, stop=%lf", 
+    syslog(LOG_DEBUG, "Thread idx=%d, sum[0...%d]=%d, running on CPU=%d, start=%lf, stop=%lf\n", 
            threadParams->threadIdx,
            threadParams->threadIdx, sum, sched_getcpu(),
            start, stop);
