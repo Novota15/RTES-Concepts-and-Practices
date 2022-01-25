@@ -80,8 +80,6 @@ void set_scheduler(void)
 }
 
 
-
-
 void *counterThread(void *threadp)
 {
     int sum=0, i, rc, iterations;
