@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <errno.h>
+#include <syslog.h>
 
 #define NSEC_PER_SEC (1000000000)
 #define NSEC_PER_MSEC (1000000)
@@ -158,12 +159,14 @@ void *delay_test(void *threadID)
   }
   else
   {
-      printf("\n\nPOSIX Clock demo using system RT clock with resolution:\n\t%ld secs, %ld microsecs, %ld nanosecs\n", rtclk_resolution.tv_sec, (rtclk_resolution.tv_nsec/1000), rtclk_resolution.tv_nsec);
+      //printf("\n\nPOSIX Clock demo using system RT clock with resolution:\n\t%ld secs, %ld microsecs, %ld nanosecs\n", rtclk_resolution.tv_sec, (rtclk_resolution.tv_nsec/1000), rtclk_resolution.tv_nsec);
+      syslog(LOG_DEBUG, "\n\nPOSIX Clock demo using system RT clock with resolution:\n\t%ld secs, %ld microsecs, %ld nanosecs\n", rtclk_resolution.tv_sec, (rtclk_resolution.tv_nsec/1000), rtclk_resolution.tv_nsec);
   }
 
   for(idx=0; idx < TEST_ITERATIONS; idx++)
   {
-      printf("test %d\n", idx);
+      syslog(LOG_DEBUG, "test %d\n, idx");
+      // printf("test %d\n", idx);
 
       /* run test for defined seconds */
       sleep_time.tv_sec=TEST_SECONDS;
