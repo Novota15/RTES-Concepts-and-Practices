@@ -1,10 +1,3 @@
-/****************************************************************************/
-/* Function: nanosleep and POSIX 1003.1b RT clock demonstration             */
-/*                                                                          */
-/* Sam Siewert - 02/05/2011                                                 */
-/*                                                                          */
-/****************************************************************************/
-
 #include <pthread.h>
 #include <unistd.h>
 #include <stdio.h>
